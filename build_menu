@@ -43,6 +43,16 @@ STD=`echo -e "\033[0m"`		# Text Clear
 build_kernel(){  
   echo "${BGREEN}***** Compiling kernel *****${STD}"
   [ ! -d "$OUT_DIR" ] && mkdir $OUT_DIR
+#式式式式式式式debug0 start
+  echo ">>> ARCH=${ARCH}"
+  echo ">>> SRCARCH=${SRCARCH:-<unset>}"  # 
+  # list both possible paths
+  echo ">>> arch/arm/configs/:"
+  ls "${KERNEL_DIR}/arch/arm/configs" 2>/dev/null || echo "  (none)"
+  echo ">>> arch/arm64/configs/:"
+  ls "${KERNEL_DIR}/arch/arm64/configs" 2>/dev/null || echo "  (none)"
+  exit 0
+#式式式式式式式debug0 end
   make -j$(nproc) -C $(pwd) $KERNEL_MAKE_ENV exynos2100-r9sxxx_defconfig
   make -j$(nproc) -C $(pwd) $KERNEL_MAKE_ENV
 
